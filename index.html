@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Menu</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #007BFF;
+            margin-bottom: 20px;
+        }
+        .menu-container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        .menu-section {
+            margin-bottom: 30px;
+        }
+        .menu-section h3 {
+            font-size: 1.5em;
+            color: #333;
+            border-bottom: 2px solid #007BFF;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .menu-item strong {
+            font-size: 1.2em;
+            color: #333;
+        }
+        input[type="number"] {
+            width: 60px;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        input[type="number"]:focus {
+            border-color: #007BFF;
+        }
+        .order-form, .payment-options {
+            text-align: center;
+            margin-top: 30px;
+        }
+        input[type="text"], input[type="number"], input[type="submit"], button {
+            padding: 12px;
+            margin: 10px 5px;
+            width: 220px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+        }
+        input[type="submit"], button {
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+        input[type="submit"]:hover, button:hover {
+            background-color: #0056b3;
+        }
+        .order-summary {
+            margin-top: 40px;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #007BFF;
+            color: white;
+        }
+        td {
+            background-color: white;
+        }
+        .order-history-container {
+            display: none;
+        }
+        .order-history-container.active {
+            display: block;
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #f4f4f9;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu-container">
+        <h1>Hotel Menu</h1>
+
+      
+        <div class="menu-section">
+            <h3>Appetizers</h3>
+            <div class="menu-item">
+                <span><strong>Garlic Bread</strong> - $4</span>
+                <input type="number" id="garlicBreadQty" placeholder="Qty">
+            </div>
+            <div class="menu-item">
+                <span><strong>Spring Rolls</strong> - $6</span>
+                <input type="number" id="springRollsQty" placeholder="Qty">
+            </div>
+        </div>
+
+        
+        <div class="menu-section">
+            <h3>Main Courses</h3>
+            <div class="menu-item">
+                <span><strong>Pizza</strong> - $10</span>
+                <input type="number" id="pizzaQty" placeholder="Qty">
+            </div>
+            <div class="menu-item">
+                <span><strong>Pasta</strong> - $8</span>
+                <input type="number" id="pastaQty" placeholder="Qty">
+            </div>
+            <div class="menu-item">
+                <span><strong>Burger</strong> - $7</span>
+                <input type="number" id="burgerQty" placeholder="Qty">
+            </div>
+            <div class="menu-item">
+                <span><strong>Steak</strong> - $15</span>
+                <input type="number" id="steakQty" placeholder="Qty">
+            </div>
+            <div class="menu-item">
+                <span><strong>Grilled Salmon</strong> - $20</span>
+                <input type="number" id="salmonQty" placeholder="Qty">
+            </div>
+        </div>
+
+        
+        <div class="menu-section">
+            <h3>Desserts</h3>
+            <div class="menu-item">
+                <span><strong>Chocolate Cake</strong> - $5</span>
+                <input type="number" id="chocolateCakeQty" placeholder="Qty">
+            </div>
+            <div class="menu-item">
+                <span><strong>Ice Cream Sundae</strong> - $6</span>
+                <input type="number" id="iceCreamQty" placeholder="Qty">
+            </div>
+        </div>
+
+       
+        <div class="menu-section">
+            <h3>Drinks</h3>
+            <div class="menu-item">
+                <span><strong>Coffee</strong> - $3</span>
+                <input type="number" id="coffeeQty" placeholder="Qty">
+            </div>
+            <div class="menu-item">
+                <span><strong>Orange Juice</strong> - $4</span>
+                <input type="number" id="orangeJuiceQty" placeholder="Qty">
+            </div>
+            <div class="menu-item">
+                <span><strong>Mineral Water</strong> - $2</span>
+                <input type="number" id="waterQty" placeholder="Qty">
+            </div>
+        </div>
+
+        <div class="order-form">
+            <h2>Place Your Order</h2>
+            <form id="orderForm">
+                <input type="text" id="name" placeholder="Your Name" required>
+                <input type="number" id="tableNumber" placeholder="Table Number" required>
+                <input type="submit" value="Submit Order">
+            </form>
+        </div>
+
+        <div class="order-summary">
+            <h2>Order Summary</h2>
+            <table id="orderTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Table Number</th>
+                        <th>Items Ordered</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                 
+                </tbody>
+            </table>
+        </div>
+
+        <div class="payment-options">
+            <h3>Select Payment Method</h3>
+            <button onclick="pay('Paytm')">Pay with Paytm</button>
+            <button onclick="pay('PayPal')">Pay with PayPal</button>
+            <button onclick="pay('UPI')">Pay with UPI</button>
+            <button onclick="pay('eSewa')">Pay with eSewa</button>
+        </div>
+    </div>
+
+    
+    <div id="loginForm">
+        <h2>Admin Login</h2>
+        <input type="password" id="adminPassword" placeholder="Enter Admin Password">
+        <button onclick="checkAdmin()">Login</button>
+    </div>
+
+    
+    <div id="orderHistory" class="order-history-container">
+        <h2>Order History</h2>
+        <ul id="historyList">
+    
+        </ul>
+    </div>
+
+    <script>
+        const form = document.getElementById('orderForm');
+        const orderTable = document.getElementById('orderTable').getElementsByTagName('tbody')[0];
+        const historyList = document.getElementById('historyList');
+        const orderHistoryContainer = document.getElementById('orderHistory');
+        let orderHistory = JSON.parse(localStorage.getItem('orderHistory')) || [];
+        const adminPassword = "12345"; 
+
+        window.onload = function() {
+            loadOrderHistory();
+        };
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const tableNumber = document.getElementById('tableNumber').value;
+            const items = [
+                {name: "Garlic Bread", qty: document.getElementById('garlicBreadQty').value, price: 4},
+                {name: "Spring Rolls", qty: document.getElementById('springRollsQty').value, price: 6},
+                {name: "Pizza", qty: document.getElementById('pizzaQty').value, price: 10},
+                {name: "Pasta", qty: document.getElementById('pastaQty').value, price: 8},
+                {name: "Burger", qty: document.getElementById('burgerQty').value, price: 7},
+                {name: "Steak", qty: document.getElementById('steakQty').value, price: 15},
+                {name: "Grilled Salmon", qty: document.getElementById('salmonQty').value, price: 20},
+                {name: "Chocolate Cake", qty: document.getElementById('chocolateCakeQty').value, price: 5},
+                {name: "Ice Cream Sundae", qty: document.getElementById('iceCreamQty').value, price: 6},
+                {name: "Coffee", qty: document.getElementById('coffeeQty').value, price: 3},
+                {name: "Orange Juice", qty: document.getElementById('orangeJuiceQty').value, price: 4},
+                {name: "Mineral Water", qty: document.getElementById('waterQty').value, price: 2}
+            ];
+
+            let orderedItems = '';
+            let totalQty = 0;
+            let totalPrice = 0;
+
+            items.forEach(item => {
+                if (item.qty > 0) {
+                    orderedItems += item.name + ', ';
+                    totalQty += parseInt(item.qty);
+                    totalPrice += item.qty * item.price;
+                }
+            });
+
+            orderedItems = orderedItems.slice(0, -2); 
+
+            if (totalQty === 0) {
+                alert('Please order at least one item.');
+                return;
+            }
+
+            const newRow = orderTable.insertRow();
+            newRow.insertCell(0).innerText = name;
+            newRow.insertCell(1).innerText = tableNumber;
+            newRow.insertCell(2).innerText = orderedItems;
+            newRow.insertCell(3).innerText = totalQty;
+            newRow.insertCell(4).innerText = '$' + totalPrice;
+
+            const order = {
+                name,
+                tableNumber,
+                items: orderedItems,
+                qty: totalQty,
+                totalPrice
+            };
+
+            orderHistory.push(order);
+            localStorage.setItem('orderHistory', JSON.stringify(orderHistory));
+
+            loadOrderHistory();
+        });
+
+        function loadOrderHistory() {
+            historyList.innerHTML = '';
+            orderHistory.forEach(order => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Name: ${order.name}, Table: ${order.tableNumber}, Items: ${order.items}, Quantity: ${order.qty}, Total: $${order.totalPrice}`;
+                historyList.appendChild(listItem);
+            });
+        }
+
+        function pay(method) {
+            alert('Payment successful via ' + method + '!');
+        }
+
+        function checkAdmin() {
+            const passwordInput = document.getElementById('adminPassword').value;
+            if (passwordInput === adminPassword) {
+                alert('Admin login successful!');
+                orderHistoryContainer.classList.add('active');
+            } else {
+                alert('Incorrect password.');
+            }
+        }
+    </script>
+
+</body>
+</html>
